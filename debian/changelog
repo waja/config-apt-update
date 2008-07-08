@@ -1,4 +1,4 @@
-config-apt-update (0.0.2) UNRELEASED; urgency=low
+config-apt-update (0.0.2) etch-restricted; urgency=low
 
   * remove comment which prevents to remove temporary directory
   * support to exclude packages
