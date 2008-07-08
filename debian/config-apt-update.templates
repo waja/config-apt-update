@@ -1,0 +1,12 @@
+Template: config-apt-update/email/configure
+Type: boolean
+Default: true
+Description: Configure Mail Notification
+ If config-apt-update should attempt to configure addresses for notification 
+ automatically, say Yes.  If not, see /etc/default/config-apt-update for storing
+ the mail addresses.
+
+Template: config-apt-update/email/addresses
+Type: string
+Description: Mailaddresses for notification
+ Mailaddresses for update notification separated with whitespaces.

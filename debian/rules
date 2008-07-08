@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+# written by Jan Wagner <waja@cyconet.org>
+#
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+build:
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/config-apt-update
+	install -d -m 0755 debian/config-apt-update/etc/default/
+	install -D -m 644 debian/config-apt-update.default debian/config-apt-update/etc/default/config-apt-update
+	#install -d -m 0755 debian/config-mysql-server-auth/etc/default/
+	#install -D -m 644 debian/config-mysql-server-auth.default debian/config-mysql-server-auth/etc/default/config-mysql-server-auth
+
+# Build architecture-independent files here.
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_install
+	dh_link -pconfig-apt-update			\
+	usr/share/config-apt-update/apt-update	\
+	etc/cron.daily/apt-update
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_installdebconf
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture-dependent files here.
+binary-arch: build install
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

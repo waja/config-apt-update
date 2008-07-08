@@ -1,0 +1,49 @@
+#!/bin/sh
+
+if [ -f /etc/default/config-apt-update ]
+then
+	. /etc/default/config-apt-update
+	if [ -z "$EMAIL" ]
+	then
+		echo "#### WARNING ####"
+		echo "EMAIL in /etc/default/config-apt-update not set!"
+		echo "#################"
+	        exit 0
+	fi
+else
+	echo "#### WARNING ####"
+	echo "/etc/default/config-apt-update is missing!"
+	echo "#################"
+	exit 0
+fi
+
+TMPMAIL="`mktemp`"
+if [ ! ${IFACE} ]
+then
+	IFACE="`/sbin/route -n | grep ^0.0.0.0 | awk ' { print $8 }'`"
+fi
+IP="`LC_ALL=en /sbin/ifconfig ${IFACE} | sed -n -e'/inet addr:/s/^.*inet addr:\([0-9.]*\).*$/\1/p'`"
+if [ -x /usr/bin/host ]
+then
+	if [ `LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $3 }'` != not ]
+		then
+		ADDRESS="`LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $5 }'`"
+	fi
+else
+	ADDRESS="${IP}"
+fi
+
+if [ -z "${ADDRESS}" ]
+then
+	ADDRESS="`/bin/hostname -f`"
+fi
+
+apt-get update > /dev/null
+
+if [ "`apt-get --just-print upgrade | grep -c -E '^Inst'`" -gt "0" ]
+then
+	echo -e "apt-get upgrade would like to install these packages:\n" > "${TMPMAIL}"
+	apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' >> "${TMPMAIL}"
+	${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}" < "${TMPMAIL}"
+#	rm -f "${TMPMAIL}"
+fi

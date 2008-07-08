@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+db_version 2.0 || [ $? -lt 30 ]
+
+if [ "$1" = "configure" ]; then
+
+    db_get config-apt-update/email/configure
+    if [ "$RET" = true ]; then
+
+       # get the answers to our questions
+       db_get config-apt-update/email/addresses
+       addresses=$RET
+
+    fi
+
+    db_stop
+
+    # write database options into config
+    if [ -e /etc/default/config-apt-update ]; then
+	/bin/sed -i -e \
+	"
+	s/\(EMAIL=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1$addresses\2/
+	" \
+	/etc/default/config-apt-update
+    else
+	echo "# To change this setting do a \'dpkg-reconfigure config-apt-update\'" > /etc/default/config-apt-update
+	echo "EMAIL=\"$addresses\"" >> /etc/default/config-apt-update
+    fi
+    chown root:root /etc/default/config-apt-update
+    chmod 600 /etc/default/config-apt-update
+
+    # remove previous stuff
+    if [ -f /usr/local/bin/apt-update.sh ]; then
+	rm -rf /usr/local/bin/apt-update.sh
+    fi
+fi
+
+#DEBHELPER#

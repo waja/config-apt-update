@@ -1,0 +1,8 @@
+# path to mail
+MAIL="/usr/bin/mail"
+# interface used for detecting hostname
+# (usually only needed if no default gateway is set)
+IFACE=""
+
+# To change this setting do a 'dpkg-reconfigure config-apt-update'
+EMAIL=""

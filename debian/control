@@ -1,0 +1,13 @@
+Source: config-apt-update
+Section: admin
+Priority: extra
+Maintainer: Jan Wagner <waja@cyconet.org>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.8.0
+
+Package: config-apt-update
+Architecture: all
+Depends: debconf (>= 0.2.26) | debconf-2.0, bind9-host, bsd-mailx | mailx | mailutils
+Description: configuration for automatical update notification
+ This package contains utilities for automatical notification of available
+ packages through apt(-titude).
