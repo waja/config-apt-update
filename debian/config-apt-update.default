@@ -1,4 +1,7 @@
-# path to mail
+# List of packages to ignore separate with '|'
+# for example "(foo|bar|foobar)"
+EXCLUDE=""
+# # path to mail
 MAIL="/usr/bin/mail"
 # interface used for detecting hostname
 # (usually only needed if no default gateway is set)
