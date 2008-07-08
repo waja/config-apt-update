@@ -45,5 +45,5 @@ then
 	echo -e "apt-get upgrade would like to install these packages:\n" > "${TMPMAIL}"
 	apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' >> "${TMPMAIL}"
 	${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}" < "${TMPMAIL}"
-#	rm -f "${TMPMAIL}"
+	rm -f "${TMPMAIL}"
 fi
