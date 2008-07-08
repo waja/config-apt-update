@@ -1,4 +1,4 @@
-config-apt-update (0.0.1) unstable; urgency=low
+config-apt-update (0.0.1) etch-restricted; urgency=low
 
   * Initial release
 
