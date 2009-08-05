@@ -1,4 +1,5 @@
 #!/bin/sh
+HASHFILE="/var/lib/config-apt-update/hostname.hash"
 
 if [ -f /etc/default/config-apt-update ]
 then
@@ -15,6 +16,11 @@ else
 	echo "/etc/default/config-apt-update is missing!"
 	echo "#################"
 	exit 0
+fi
+
+if [ -f ${HASHFILE} ]
+then
+	. ${HASHFILE}
 fi
 
 TMPMAIL="`mktemp`"
@@ -67,4 +73,30 @@ else
 		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}" < "${TMPMAIL}"
 		rm -f "${TMPMAIL}"
 	fi
+fi
+
+if [ "$XMLEXPORT" = "1" ]
+then
+	if [ -z "${HASH}" ]
+	then
+		HASH="`echo $ADDRESS | sha512sum | awk ' { print $1 }'`"
+		sed -i -e "s/\(HASH=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1${HASH}\2/" "${HASHFILE}"
+	fi
+	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l`" -gt "0" ]
+	then
+		TIMESTAMP="`date +%s`"
+		echo "${HASH}"
+		getaddress
+		echo -e "<UpdateReport>" > "${TMPMAIL}"
+		echo -e "\t<hostname>${ADDRESS}</hostname>" >> "${TMPMAIL}"
+		echo -e "\t<hash>${HASH}</hash>" >> "${TMPMAIL}"
+		echo -e "\t<timestamp>${TIMESTAMP}</timestamp>" >> "${TMPMAIL}"
+#		echo -e "\t<update>" >> "${TMPMAIL}"
+		apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print "\t\t<package>\n\t\t\t<name>"$2"</name>\n" "\t\t\t<installedVersion>"$3"</installedVersion>\n" "\t\t\t<updatedVersion>"$4")</updatedVersion>\n\t\t</package>" }' >> "${TMPMAIL}"
+#		echo -e "\t</update>" >> "${TMPMAIL}"
+		echo -e "</UpdateReport>" >> "${TMPMAIL}"
+		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}" < "${TMPMAIL}"
+#		rm -f "${TMPMAIL}"
+	fi
+
 fi

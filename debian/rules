@@ -20,8 +20,6 @@ install: build
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/config-apt-update
 	install -d -m 0755 debian/config-apt-update/etc/default/
 	install -D -m 644 debian/config-apt-update.default debian/config-apt-update/etc/default/config-apt-update
-	#install -d -m 0755 debian/config-mysql-server-auth/etc/default/
-	#install -D -m 644 debian/config-mysql-server-auth.default debian/config-mysql-server-auth/etc/default/config-mysql-server-auth
 
 # Build architecture-independent files here.
 binary-indep: build install
