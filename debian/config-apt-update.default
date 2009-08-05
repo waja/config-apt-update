@@ -10,3 +10,4 @@ IFACE=""
 # To change this setting do a 'dpkg-reconfigure config-apt-update'
 EMAIL=""
 XMLEMAIL=""
+XMLEXPORT="0"
