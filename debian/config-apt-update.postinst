@@ -29,12 +29,12 @@ if [ "$1" = "configure" ]; then
 
     # write database options into config
     if [ -e /etc/default/config-apt-update ]; then
-	/bin/sed -i -e \
+	sed -i -e \
 	"
 	s/\(EMAIL=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1$addresses\2/
 	" \
 	/etc/default/config-apt-update
-	/bin/sed -i -e \
+	sed -i -e \
         "
         s/\(XMLEMAIL=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1$xmladdresses\2/
         " \
