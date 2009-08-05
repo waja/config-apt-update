@@ -16,6 +16,15 @@ if [ "$1" = "configure" ]; then
 
     fi
 
+    db_get config-apt-update/xmlemail/configure
+    if [ "$RET" = true ]; then
+
+       # get the answers to our questions
+       db_get config-apt-update/xmlemail/addresses
+       xmladdresses=$RET
+
+    fi
+
     db_stop
 
     # write database options into config
@@ -25,9 +34,16 @@ if [ "$1" = "configure" ]; then
 	s/\(EMAIL=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1$addresses\2/
 	" \
 	/etc/default/config-apt-update
+	/bin/sed -i -e \
+        "
+        s/\(XMLEMAIL=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1$xmladdresses\2/
+        " \
+        /etc/default/config-apt-update
+
     else
 	echo "# To change this setting do a \'dpkg-reconfigure config-apt-update\'" > /etc/default/config-apt-update
 	echo "EMAIL=\"$addresses\"" >> /etc/default/config-apt-update
+	echo "XMLEMAIL=\"xmladdresses\"" >> /etc/default/config-apt-update
     fi
     chown root:root /etc/default/config-apt-update
     chmod 600 /etc/default/config-apt-update

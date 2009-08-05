@@ -2,6 +2,7 @@ config-apt-update (0.0.3) UNRELEASED; urgency=low
 
   * remove unneeded stuff from rules
   * add primarily support for XML export mails
+  * add debconf support for XML export mails
 
  -- Jan Wagner <waja@cyconet.org>  Tue, 08 Jul 2008 22:58:09 +0200
 
