@@ -1,3 +1,9 @@
+config-apt-update (0.0.6) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Jan Wagner <waja@cyconet.org>  Thu, 06 Aug 2009 11:18:07 +0200
+
 config-apt-update (0.0.5) etch-restricted; urgency=low
 
   * remove debug output of the hosthash
