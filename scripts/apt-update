@@ -85,7 +85,6 @@ then
 	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l`" -gt "0" ]
 	then
 		TIMESTAMP="`date +%s`"
-		echo "${HASH}"
 		getaddress
 		echo -e "<UpdateReport>" > "${TMPMAIL}"
 		echo -e "\t<hostname>${ADDRESS}</hostname>" >> "${TMPMAIL}"
