@@ -1,3 +1,9 @@
+config-apt-update (0.0.5) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Jan Wagner <waja@cyconet.org>  Thu, 06 Aug 2009 11:14:12 +0200
+
 config-apt-update (0.0.4) etch-restricted; urgency=low
 
   * send versions (old and new) with notification mails
