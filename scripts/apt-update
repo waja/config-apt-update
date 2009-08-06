@@ -92,7 +92,7 @@ then
 		echo -e "\t<timestamp>${TIMESTAMP}</timestamp>" >> "${TMPMAIL}"
 		apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print "\t\t<package>\n\t\t\t<name>"$2"</name>\n" "\t\t\t<installedVersion>"$3"</installedVersion>\n" "\t\t\t<updatedVersion>"$4")</updatedVersion>\n\t\t</package>" }' >> "${TMPMAIL}"
 		echo -e "</UpdateReport>" >> "${TMPMAIL}"
-		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS} (XML format)" < "${TMPMAIL}"
+		${MAIL} ${XMLEMAIL} -s "Updates available on ${ADDRESS} (XML format)" < "${TMPMAIL}"
 		rm -f "${TMPMAIL}"
 	fi
 
