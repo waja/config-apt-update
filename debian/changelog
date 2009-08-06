@@ -1,8 +1,8 @@
-config-apt-update (0.0.6) UNRELEASED; urgency=low
+config-apt-update (0.0.6) etch-restricted; urgency=low
 
-  * NOT RELEASED YET
+  * remove (broken) default setting for debconf
 
- -- Jan Wagner <waja@cyconet.org>  Thu, 06 Aug 2009 11:18:07 +0200
+ -- Jan Wagner <waja@cyconet.org>  Thu, 06 Aug 2009 12:16:33 +0200
 
 config-apt-update (0.0.5) etch-restricted; urgency=low
 
