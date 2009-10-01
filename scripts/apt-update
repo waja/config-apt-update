@@ -1,5 +1,9 @@
 #!/bin/sh
 HASHFILE="/var/lib/config-apt-update/hostname.hash"
+HASHMECH=`which sha512sum`
+if [ $? -ne 0 ]; then
+        HASHMECH=`which sha1sum`
+fi
 
 if [ -f /etc/default/config-apt-update ]
 then
@@ -80,7 +84,7 @@ then
 	if [ -z "${HASH}" ]
 	then
 		getaddress
-		HASH="`printf ${ADDRESS} | sha512sum | awk ' { print $1 }'`"
+		HASH="`printf ${ADDRESS} | ${HASHMECH} | awk ' { print $1 }'`"
 		sed -i -e "s/\(HASH=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1${HASH}\2/" "${HASHFILE}"
 	fi
 #	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l`" -gt "0" ]
