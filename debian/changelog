@@ -1,9 +1,10 @@
-config-apt-update (0.0.9) UNRELEASED; urgency=low
+config-apt-update (0.0.9) etch-restricted; urgency=low
 
   * Fix xml format
   * Send xml mail in any case
+  * Fix hash gerneration
 
- -- Jan Wagner <waja@cyconet.org>  Thu, 01 Oct 2009 08:43:08 +0200
+ -- Jan Wagner <waja@cyconet.org>  Thu, 01 Oct 2009 09:06:00 +0200
 
 config-apt-update (0.0.8) etch-restricted; urgency=low
 

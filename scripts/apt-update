@@ -79,7 +79,8 @@ if [ "$XMLEXPORT" = "1" ]
 then
 	if [ -z "${HASH}" ]
 	then
-		HASH="`printf $ADDRESS | sha512sum | awk ' { print $1 }'`"
+		getaddress
+		HASH="`printf ${ADDRESS} | sha512sum | awk ' { print $1 }'`"
 		sed -i -e "s/\(HASH=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1${HASH}\2/" "${HASHFILE}"
 	fi
 #	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l`" -gt "0" ]
