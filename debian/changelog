@@ -4,6 +4,7 @@ config-apt-update (0.0.9) etch-restricted; urgency=low
   * Send xml mail in any case
   * Fix hash gerneration
   * If sha512sum not available, use sha1sum
+  * Optimize hostname detection
 
  -- Jan Wagner <waja@cyconet.org>  Thu, 01 Oct 2009 09:06:00 +0200
 

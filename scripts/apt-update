@@ -31,24 +31,27 @@ TMPMAIL="`mktemp`"
 # get hostname from address
 getaddress()
 {
-	if [ ! ${IFACE} ]
+	if [ ! ${ADDRESS} ]
 	then
-		IFACE="`/sbin/route -n | grep ^0.0.0.0 | awk ' { print $8 }'`"
-	fi
-	IP="`LC_ALL=en /sbin/ifconfig ${IFACE} | sed -n -e'/inet addr:/s/^.*inet addr:\([0-9.]*\).*$/\1/p'`"
-	if [ -x /usr/bin/host ]
-	then
-		if [ `LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $3 }'` != not ]
-			then
-			ADDRESS="`LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $5 }'`"
+		if [ ! ${IFACE} ]
+		then
+			IFACE="`/sbin/route -n | grep ^0.0.0.0 | awk ' { print $8 }'`"
 		fi
-	else
-		ADDRESS="${IP}"
-	fi
+		IP="`LC_ALL=en /sbin/ifconfig ${IFACE} | sed -n -e'/inet addr:/s/^.*inet addr:\([0-9.]*\).*$/\1/p'`"
+		if [ -x /usr/bin/host ]
+		then
+			if [ `LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $3 }'` != not ]
+				then
+				ADDRESS="`LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $5 }'`"
+			fi
+		else
+			ADDRESS="${IP}"
+		fi
 
-	if [ -z "${ADDRESS}" ]
-	then
-		ADDRESS="`/bin/hostname -f`"
+		if [ -z "${ADDRESS}" ]
+		then
+			ADDRESS="`/bin/hostname -f`"
+		fi
 	fi
 }
 
