@@ -86,7 +86,7 @@ then
 	then
 		TIMESTAMP="`date +%s`"
 		getaddress
-		printf "<UpdateReport>\n" > "${TMPMAIL}"
+		printf "<updateReport>\n" > "${TMPMAIL}"
 		printf "\t<hostname>${ADDRESS}</hostname>\n" >> "${TMPMAIL}"
 		printf "\t<hash>${HASH}</hash>\n" >> "${TMPMAIL}"
 		printf "\t<timestamp>${TIMESTAMP}</timestamp>\n" >> "${TMPMAIL}"
