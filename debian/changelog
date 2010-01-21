@@ -1,4 +1,4 @@
-config-apt-update (0.0.9) etch-restricted; urgency=low
+config-apt-update (0.0.9) lenny-restricted; urgency=low
 
   * Fix xml format
   * Send xml mail in any case
