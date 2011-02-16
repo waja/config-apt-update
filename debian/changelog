@@ -1,9 +1,10 @@
-config-apt-update (0.0.10) UNRELEASED; urgency=low
+config-apt-update (0.0.10) restricted; urgency=low
 
   * Add Vcs-Fields
   * Add 1.0 to debian/source/format
+  * Update packaging
 
- -- Jan Wagner <waja@cyconet.org>  Thu, 21 Jan 2010 15:38:28 +0100
+ -- Jan Wagner <waja@cyconet.org>  Wed, 16 Feb 2011 15:02:18 +0100
 
 config-apt-update (0.0.9) lenny-restricted; urgency=low
 
