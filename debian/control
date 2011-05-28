@@ -5,11 +5,11 @@ Maintainer: Jan Wagner <waja@cyconet.org>
 Build-Depends: debhelper (>= 7)
 Vcs-Browser: https://scm.uncompleted.org/projects/restricteddebian/repository/show/config-apt-update
 Vcs-Svn: https://scm.uncompleted.org/svn/restricted/debian/config-apt-update
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 
 Package: config-apt-update
 Architecture: all
-Depends: ${misc:Depends}, debconf (>= 0.2.26) | debconf-2.0, ldnsutils | bind9-host, bsd-mailx | mailx | mailutils
+Depends: ${misc:Depends}, debconf (>= 0.2.26) | debconf-2.0, bind9-host | ldnsutils, bsd-mailx | mailx | mailutils
 Description: configuration for automatical update notification
  This package contains utilities for automatical notification of available
  packages through apt(-titude).

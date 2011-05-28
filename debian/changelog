@@ -1,6 +1,7 @@
-config-apt-update (0.0.12) UNRELEASED; urgency=low
+config-apt-update (0.0.12) restricted; urgency=low
 
-  * NOT RELEASED YET
+  * Order bind9-host as primary dependency
+  * Bump standards version, no changes needed
 
  -- Jan Wagner <waja@cyconet.org>  Sat, 28 May 2011 18:54:01 +0200
 
