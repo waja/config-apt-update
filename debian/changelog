@@ -1,3 +1,9 @@
+config-apt-update (0.0.12) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Jan Wagner <waja@cyconet.org>  Sat, 28 May 2011 18:54:01 +0200
+
 config-apt-update (0.0.11) restricted; urgency=low
 
   * Add ldnsutils as dependency alternative to bind9-host
