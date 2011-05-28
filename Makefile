@@ -22,6 +22,8 @@ install:
 	mkdir -p $(DESTDIR)/usr/share
 	cp -r scripts $(DESTDIR)/usr/share/config-apt-update
 	chmod -R +x $(DESTDIR)/usr/share/config-apt-update
+	mkdir -p $(DESTDIR)/var/lib/config-apt-update
+	echo 'HASH=""' > $(DESTDIR)/var/lib/config-apt-update/hostname.hash
 
 uninstall:
 	# Uninstalling scripts

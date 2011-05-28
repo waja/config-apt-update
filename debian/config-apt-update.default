@@ -1,3 +1,6 @@
+# List of packages to ignore separate with '|'
+# for example "(foo|bar|foobar)"
+EXCLUDE=""
 # path to mail
 MAIL="/usr/bin/mail"
 # interface used for detecting hostname
@@ -6,3 +9,5 @@ IFACE=""
 
 # To change this setting do a 'dpkg-reconfigure config-apt-update'
 EMAIL=""
+XMLEMAIL=""
+XMLEXPORT="0"
