@@ -1,6 +1,7 @@
 config-apt-update (0.0.11) UNRELEASED; urgency=low
 
-  * NOT RELEASED YET
+  * Add ldnsutils as dependency alternative to bind9-host
+  * Try using drill to determinate the reverse dns of the local ip first
 
  -- Jan Wagner <waja@cyconet.org>  Wed, 16 Feb 2011 15:04:55 +0100
 

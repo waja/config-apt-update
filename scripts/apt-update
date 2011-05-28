@@ -38,7 +38,13 @@ getaddress()
 			IFACE="`/sbin/route -n | grep ^0.0.0.0 | awk ' { print $8 }'`"
 		fi
 		IP="`LC_ALL=en /sbin/ifconfig ${IFACE} | sed -n -e'/inet addr:/s/^.*inet addr:\([0-9.]*\).*$/\1/p'`"
-		if [ -x /usr/bin/host ]
+		if [ -x /usr/bin/drill ]
+		then
+			if [ -n `/usr/bin/drill -x ${IP} | grep -v "^;;" | grep PTR | awk '{print $5}'` ]
+				then
+				ADDRESS="`/usr/bin/drill -x ${IP} | grep -v "^;;" | grep PTR | awk '{print $5}'`"
+			fi
+		elif [ -x /usr/bin/host ]
 		then
 			if [ `LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $3 }'` != not ]
 				then
