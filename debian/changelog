@@ -1,4 +1,4 @@
-config-apt-update (0.0.11) UNRELEASED; urgency=low
+config-apt-update (0.0.11) restricted; urgency=low
 
   * Add ldnsutils as dependency alternative to bind9-host
   * Try using drill to determinate the reverse dns of the local ip first
