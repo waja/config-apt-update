@@ -1,3 +1,9 @@
+config-apt-update (0.0.13) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Jan Wagner <waja@cyconet.org>  Sat, 12 Oct 2013 22:53:07 +0200
+
 config-apt-update (0.0.12) restricted; urgency=low
 
   * Order bind9-host as primary dependency
