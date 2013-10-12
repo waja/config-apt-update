@@ -5,7 +5,7 @@ Maintainer: Jan Wagner <waja@cyconet.org>
 Build-Depends: debhelper (>= 7)
 Vcs-Browser: https://scm.uncompleted.org/projects/restricteddebian/repository/show/config-apt-update
 Vcs-Svn: https://scm.uncompleted.org/svn/restricted/debian/config-apt-update
-Standards-Version: 3.9.2
+Standards-Version: 3.9.4
 
 Package: config-apt-update
 Architecture: all
