@@ -1,8 +1,23 @@
-config-apt-update (0.0.13) UNRELEASED; urgency=low
+config-apt-update (0.0.14) restricted; urgency=low
 
-  * NOT RELEASED YET
+  * [5659793] Bump Standards-Version to 3.9.4, no changes needed
+  * [2f0a348] Add missing recommanded build targets
+  * [d096141] Update Vcs-Headers
+  * [6786c1e] Updating standards version to 3.9.5, no changes needed
+  * [7b13bfb] Add configuration for travis-ci.org
+  * [f3c477c] Don't install recommanded packages when building on Travis CI
+  * [611c177] Adding README.md
+  * [9d71eb5] Reorder and comment .travis.yml
+  * [87490ab] Add lintian checks after build
+  * [67923db] travis-ci: don't install build-deps manual
+  * [bedafbe] travis-ci: build package with dpkg-buildpackage
+  * [9e08a85] travis-ci: Initial support for uploading releases to github
+  * [4a3bdd3] Merging upstream changes of github-release.sh
+  * [8d6ac70] Updating copyright and author of debian/bin/github-release.sh
+  * [091cf38] Add Conflicts for heirloom-mailx
+  * [be38827] Bump Standards-Version to 3.9.6, no changes needed
 
- -- Jan Wagner <waja@cyconet.org>  Sat, 12 Oct 2013 22:53:07 +0200
+ -- Jan Wagner <waja@cyconet.org>  Thu, 19 Mar 2015 22:33:56 +0100
 
 config-apt-update (0.0.12) restricted; urgency=low
 
