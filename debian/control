@@ -10,6 +10,7 @@ Standards-Version: 3.9.5
 Package: config-apt-update
 Architecture: all
 Depends: ${misc:Depends}, debconf (>= 0.2.26) | debconf-2.0, bind9-host | ldnsutils, bsd-mailx | mailx | mailutils
+Conflicts: heirloom-mailx
 Description: configuration for automatical update notification
  This package contains utilities for automatical notification of available
  packages through apt(-titude).
