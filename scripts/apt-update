@@ -87,27 +87,3 @@ else
 		rm -f "${TMPMAIL}"
 	fi
 fi
-
-if [ "$XMLEXPORT" = "1" ]
-then
-	if [ -z "${HASH}" ]
-	then
-		getaddress
-		HASH="`printf ${ADDRESS} | ${HASHMECH} | awk ' { print $1 }'`"
-		sed -i -e "s/\(HASH=[^'\"]*['\"]\)[^'\"]*\(['\"].*\)/\1${HASH}\2/" "${HASHFILE}"
-	fi
-#	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l`" -gt "0" ]
-#	then
-		TIMESTAMP="`date +%s`"
-		getaddress
-		printf "<updateReport>\n" > "${TMPMAIL}"
-		printf "\t<hostname>${ADDRESS}</hostname>\n" >> "${TMPMAIL}"
-		printf "\t<hash>${HASH}</hash>\n" >> "${TMPMAIL}"
-		printf "\t<timestamp>${TIMESTAMP}</timestamp>\n" >> "${TMPMAIL}"
-		apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print "\t\t<package>\n\t\t\t<name>"$2"</name>\n" "\t\t\t<installedVersion>"$3"</installedVersion>\n" "\t\t\t<updatedVersion>"$4")</updatedVersion>\n\t\t</package>" }' >> "${TMPMAIL}"
-		printf "</updateReport>\n" >> "${TMPMAIL}"
-		${MAIL} ${XMLEMAIL} -s "Updates available on ${ADDRESS} (XML format)" < "${TMPMAIL}"
-		rm -f "${TMPMAIL}"
-#	fi
-
-fi
