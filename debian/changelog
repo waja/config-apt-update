@@ -1,3 +1,13 @@
+config-apt-update (0.0.16) restricted; urgency=medium
+
+  * [ebfe267] debian/control: reformating with warp-and-sort
+  * [0a2406e] travis-ci: Adding required arguments for trusty
+  * [569c8c5] travis-ci: automatically install dependencies
+  * [f84ce10] Remove obsolete xml notification function
+  * [1b00096] d/control: Bump Standards-Version to 3.9.8, no changes needed
+
+ -- Jan Wagner <waja@cyconet.org>  Thu, 08 Sep 2016 09:51:21 +0200
+
 config-apt-update (0.0.15) restricted; urgency=medium
 
   * [c8a6dca] Compress package with gzip, to work on older debian releases
