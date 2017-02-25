@@ -58,6 +58,11 @@ getaddress()
 		then
 			ADDRESS="`/bin/hostname -f`"
 		fi
+
+		if [ "${ADDRESS}" != "${IP}" ]
+		then
+			ADDRESS=$(echo "${ADDRESS} (${IP})")
+		fi
 	fi
 }
 
