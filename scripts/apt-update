@@ -1,6 +1,8 @@
 #!/bin/sh
 HASHFILE="/var/lib/config-apt-update/hostname.hash"
 HASHMECH=`which sha512sum`
+OS_STRING="[undetected os] "
+
 if [ $? -ne 0 ]; then
         HASHMECH=`which sha1sum`
 fi
@@ -66,6 +68,12 @@ getaddress()
 	fi
 }
 
+detect_os()
+{
+	[ -r /etc/os-release ] && . /etc/os-release
+	OS_STRING=$(echo " [${ID} ${VERSION_ID}]")
+}
+
 # get new packages list
 apt-get update > /dev/null
 
@@ -77,18 +85,20 @@ then
 	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l`" -gt "0" ]
 	then
 		getaddress
+		detect_os
 		printf "apt-get upgrade would like to install these packages:\n\n" > "${TMPMAIL}"
 		apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
-		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}" < "${TMPMAIL}"
+		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}${OS_STRING}" < "${TMPMAIL}"
 		rm -f "${TMPMAIL}"
 	fi
 else
 	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2 }' | wc -l`" -gt "0" ]
 	then
 		getaddress
+		detect_os
 		printf "apt-get upgrade would like to install these packages:\n\n" > "${TMPMAIL}"
 		apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
-		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}" < "${TMPMAIL}"
+		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}${OS_STRING}" < "${TMPMAIL}"
 		rm -f "${TMPMAIL}"
 	fi
 fi
