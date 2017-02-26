@@ -63,7 +63,7 @@ getaddress()
 
 		if [ "${ADDRESS}" != "${IP}" ]
 		then
-			ADDRESS=$(echo "${ADDRESS} (${IP})")
+			ADDRESS="${ADDRESS} (${IP})"
 		fi
 	fi
 }
@@ -71,7 +71,7 @@ getaddress()
 detect_os()
 {
 	[ -r /etc/os-release ] && . /etc/os-release
-	OS_STRING=$(echo " [${ID} ${VERSION_ID}]")
+	OS_STRING=" [${ID} ${VERSION_ID}]"
 }
 
 detect_held_packages()
