@@ -34,7 +34,10 @@ if [ "$1" = "configure" ]; then
 
     # remove previous stuff
     if [ -f /usr/local/bin/apt-update.sh ]; then
-        rm -rf /usr/local/bin/apt-update.sh
+        rm -f /usr/local/bin/apt-update.sh
+    fi
+    if [ -f /var/lib/config-apt-update/hostname.hash ]; then
+	rm -f /var/lib/config-apt-update/hostname.hash
     fi
 fi
 

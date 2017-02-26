@@ -22,6 +22,9 @@ if [ "$1" = "purge" ]; then
         fi
 
         db_purge
+	if [ -f /var/lib/config-apt-update/hostname.hash ]; then
+	    rm -f /var/lib/config-apt-update/hostname.hash
+	fi
     fi
 fi
 
