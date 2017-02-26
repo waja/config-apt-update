@@ -1,8 +1,19 @@
-config-apt-update (0.0.17~1.gbpe7a910) UNRELEASED; urgency=medium
+config-apt-update (0.1.0~2) restricted; urgency=medium
 
-  * UNRELEASED
+  * [f1bf492] Also show IP in mail subject
+  * [24b45e3] Put OS version into mail subject
+  * [d05fac0] Output the packages which are held back
+  * [6979707] Consolidate shared code for creating the mail into make_mail function
+  * [0de864a] Fixing SC2006
+  * [9db0c14] Fixing SC2046
+  * [876d830] Fixing SC2116 (Useless use of echo)
+  * [fee63ff] Removing dead code and files
+  * [7ada3c1] Run shellcheck on 'make test' if available
+  * [ed630c4] travis-ci: Install shellcheck
+  * [38d0ca1] travis-ci: Run 'make test'
+  * [f6c40e3] Prevent empty OS string
 
- -- Jan Wagner <waja@cyconet.org>  Thu, 08 Sep 2016 12:30:12 +0200
+ -- Jan Wagner <waja@cyconet.org>  Sun, 26 Feb 2017 13:43:19 +0100
 
 config-apt-update (0.0.16) restricted; urgency=medium
 
