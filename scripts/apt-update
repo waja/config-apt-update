@@ -79,6 +79,23 @@ detect_held_packages()
 	PACKAGES_HELD=$(apt-get --just-print -u upgrade | grep -1 "been kept back" | tail -1)
 }
 
+make_mail()
+{
+	printf "apt-get upgrade would like to install these packages:\n\n" > "${TMPMAIL}"
+	if [ -z "${EXCLUDE}" ]
+	then
+		apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
+	else
+		apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
+	fi
+	if [ -n "${PACKAGES_HELD}" ]
+	then
+		printf "\nThe following packages are kept back:\n\n%s" "$PACKAGES_HELD" >> "${TMPMAIL}";
+	fi
+	${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}${OS_STRING}" < "${TMPMAIL}"
+	rm -f "${TMPMAIL}"
+}
+
 # get new packages list
 apt-get update > /dev/null
 
@@ -92,14 +109,7 @@ then
 		getaddress
 		detect_os
 		detect_held_packages
-		printf "apt-get upgrade would like to install these packages:\n\n" > "${TMPMAIL}"
-		apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
-		if [ -n "${PACKAGES_HELD}" ]
-		then
-			printf "\nThe following packages are kept back:\n\n%s" "$PACKAGES_HELD" >> "${TMPMAIL}";
-		fi
-		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}${OS_STRING}" < "${TMPMAIL}"
-		rm -f "${TMPMAIL}"
+		make_mail
 	fi
 else
 	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2 }' | wc -l`" -gt "0" ]
@@ -107,13 +117,6 @@ else
 		getaddress
 		detect_os
 		detect_held_packages
-		printf "apt-get upgrade would like to install these packages:\n\n" > "${TMPMAIL}"
-		apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
-		if [ -n "${PACKAGES_HELD}" ]
-		then
-			printf "\nThe following packages are kept back:\n\n%s" "$PACKAGES_HELD" >> "${TMPMAIL}";
-		fi
-		${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}${OS_STRING}" < "${TMPMAIL}"
-		rm -f "${TMPMAIL}"
+		make_mail
 	fi
 fi
