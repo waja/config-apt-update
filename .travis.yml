@@ -8,7 +8,7 @@ before_install:
 
 install:
     # install packages needed for mk-build-deps
-    - sudo apt-get install -qq --no-install-recommends devscripts equivs
+    - sudo apt-get install -qq --no-install-recommends devscripts equivs shellcheck
     # pull build deps from debian/control
     - sudo mk-build-deps -ir -t "apt-get --yes --no-install-recommends"
     # remove packages needed for mk-build-deps
