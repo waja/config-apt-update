@@ -1,10 +1,10 @@
 #!/bin/sh
 HASHFILE="/var/lib/config-apt-update/hostname.hash"
-HASHMECH=`which sha512sum`
+HASHMECH=$(which sha512sum)
 OS_STRING="[undetected os] "
 
 if [ $? -ne 0 ]; then
-        HASHMECH=`which sha1sum`
+        HASHMECH=$(which sha1sum)
 fi
 
 if [ -f /etc/default/config-apt-update ]
@@ -29,28 +29,28 @@ then
 	. ${HASHFILE}
 fi
 
-TMPMAIL="`mktemp`"
+TMPMAIL="$(mktemp)"
 # get hostname from address
 getaddress()
 {
-	if [ ! ${ADDRESS} ]
+	if [ ! "${ADDRESS}" ]
 	then
-		if [ ! ${IFACE} ]
+		if [ ! "${IFACE}" ]
 		then
-			IFACE="`/sbin/route -n | grep ^0.0.0.0 | awk ' { print $8 }'`"
+			IFACE="$(/sbin/route -n | grep ^0.0.0.0 | awk ' { print $8 }')"
 		fi
-		IP="`LC_ALL=en /sbin/ifconfig ${IFACE} | sed -n -e'/inet addr:/s/^.*inet addr:\([0-9.]*\).*$/\1/p'`"
+		IP="$(LC_ALL=en /sbin/ifconfig "${IFACE}" | sed -n -e'/inet addr:/s/^.*inet addr:\([0-9.]*\).*$/\1/p')"
 		if [ -x /usr/bin/drill ]
 		then
-			if [ -n `/usr/bin/drill -x ${IP} | grep -v "^;;" | grep PTR | awk '{print $5}'` ]
+			if [ -n "$(/usr/bin/drill -x "${IP}" | grep -v "^;;" | grep PTR | awk '{print $5}')" ]
 				then
-				ADDRESS="`/usr/bin/drill -x ${IP} | grep -v "^;;" | grep PTR | awk '{print $5}'`"
+				ADDRESS="$(/usr/bin/drill -x "${IP}" | grep -v "^;;" | grep PTR | awk '{print $5}')"
 			fi
 		elif [ -x /usr/bin/host ]
 		then
-			if [ `LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $3 }'` != not ]
+			if [ "$(LC_ALL=en /usr/bin/host "${IP}" | tail -1 | awk ' { print $3 }')" != not ]
 				then
-				ADDRESS="`LC_ALL=en /usr/bin/host ${IP} | tail -1 | awk ' { print $5 }'`"
+				ADDRESS="$(LC_ALL=en /usr/bin/host "${IP}" | tail -1 | awk ' { print $5 }')"
 			fi
 		else
 			ADDRESS="${IP}"
@@ -58,12 +58,12 @@ getaddress()
 
 		if [ -z "${ADDRESS}" ]
 		then
-			ADDRESS="`/bin/hostname -f`"
+			ADDRESS="$(/bin/hostname -f)"
 		fi
 
 		if [ "${ADDRESS}" != "${IP}" ]
 		then
-			ADDRESS=$(echo "${ADDRESS} (${IP})")
+			ADDRESS="${ADDRESS} (${IP})"
 		fi
 	fi
 }
@@ -71,7 +71,7 @@ getaddress()
 detect_os()
 {
 	[ -r /etc/os-release ] && . /etc/os-release
-	OS_STRING=$(echo " [${ID} ${VERSION_ID}]")
+	OS_STRING=" [${ID} ${VERSION_ID}]"
 }
 
 detect_held_packages()
@@ -92,7 +92,7 @@ make_mail()
 	then
 		printf "\nThe following packages are kept back:\n\n%s" "$PACKAGES_HELD" >> "${TMPMAIL}";
 	fi
-	${MAIL} ${EMAIL} -s "Updates available on ${ADDRESS}${OS_STRING}" < "${TMPMAIL}"
+	${MAIL} "${EMAIL}" -s "Updates available on ${ADDRESS}${OS_STRING}" < "${TMPMAIL}"
 	rm -f "${TMPMAIL}"
 }
 
@@ -100,11 +100,11 @@ make_mail()
 apt-get update > /dev/null
 
 # remove leading and trailing whitespaces from value
-EXCLUDE="`echo ${EXCLUDE} | sed 's/^[ \t]*//;s/[ \t]*$//'`"
+EXCLUDE="$(echo "${EXCLUDE}" | sed 's/^[ \t]*//;s/[ \t]*$//')"
 
 if [ -z "${EXCLUDE}" ]
 then
-	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l`" -gt "0" ]
+	if [ "$(apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l)" -gt "0" ]
 	then
 		getaddress
 		detect_os
@@ -112,7 +112,7 @@ then
 		make_mail
 	fi
 else
-	if [ "`apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2 }' | wc -l`" -gt "0" ]
+	if [ "$(apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2 }' | wc -l)" -gt "0" ]
 	then
 		getaddress
 		detect_os
