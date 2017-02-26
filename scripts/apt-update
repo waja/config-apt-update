@@ -1,5 +1,5 @@
 #!/bin/sh
-OS_STRING="[undetected os] "
+OS_STRING=" [undetected os] "
 
 if [ -f /etc/default/config-apt-update ]
 then
@@ -59,8 +59,11 @@ getaddress()
 
 detect_os()
 {
-	[ -r /etc/os-release ] && . /etc/os-release
-	OS_STRING=" [${ID} ${VERSION_ID}]"
+	if [ -r /etc/os-release ]
+	then
+		. /etc/os-release
+		OS_STRING=" [${ID} ${VERSION_ID}]"
+	fi
 }
 
 detect_held_packages()
