@@ -1,11 +1,5 @@
 #!/bin/sh
-HASHFILE="/var/lib/config-apt-update/hostname.hash"
-HASHMECH=$(which sha512sum)
 OS_STRING="[undetected os] "
-
-if [ $? -ne 0 ]; then
-        HASHMECH=$(which sha1sum)
-fi
 
 if [ -f /etc/default/config-apt-update ]
 then
@@ -22,11 +16,6 @@ else
 	printf "/etc/default/config-apt-update is missing!\n"
 	printf "#################\n"
 	exit 0
-fi
-
-if [ -f ${HASHFILE} ]
-then
-	. ${HASHFILE}
 fi
 
 TMPMAIL="$(mktemp)"
