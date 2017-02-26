@@ -17,6 +17,13 @@ test:
 		echo "WARNING: skipping bashism test - you need to install devscripts."; \
 	fi
 
+	if [ -x /usr/bin/shellcheck ]; \
+	then \
+		shellcheck scripts/* || true; \
+	else \
+		echo "WARNING: skipping shellcheck test - you need to install shellcheck."; \
+	fi
+
 install:
 	# Installing scripts
 	mkdir -p $(DESTDIR)/usr/share
