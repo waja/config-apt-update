@@ -1,8 +1,9 @@
-config-apt-update (0.1.1~1) UNRELEASED; urgency=medium
+config-apt-update (0.1.1) restricted; urgency=medium
 
-  * 
+  * [e3ea2f3] Make use of 'ip' as 'ifconfig' is not installed default
+    since stretch
 
- -- Jan Wagner <waja@cyconet.org>  Sun, 26 Feb 2017 21:02:52 +0100
+ -- Jan Wagner <waja@cyconet.org>  Tue, 04 Apr 2017 10:38:54 +0200
 
 config-apt-update (0.1.0~2) restricted; urgency=medium
 
