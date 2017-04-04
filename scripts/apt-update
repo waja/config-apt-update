@@ -28,7 +28,7 @@ getaddress()
 		then
 			IFACE="$(/sbin/route -n | grep ^0.0.0.0 | awk ' { print $8 }')"
 		fi
-		IP="$(LC_ALL=en /sbin/ifconfig "${IFACE}" | sed -n -e'/inet addr:/s/^.*inet addr:\([0-9.]*\).*$/\1/p')"
+		IP="$(LC_ALL=en ip addr | grep ${IFACE}.*UP -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 		if [ -x /usr/bin/drill ]
 		then
 			if [ -n "$(/usr/bin/drill -x "${IP}" | grep -v "^;;" | grep PTR | awk '{print $5}')" ]
