@@ -1,3 +1,9 @@
+config-apt-update (0.1.2) UNRELEASED; urgency=medium
+
+  * 
+
+ -- Jan Wagner <waja@cyconet.org>  Tue, 04 Apr 2017 10:46:29 +0200
+
 config-apt-update (0.1.1) restricted; urgency=medium
 
   * [e3ea2f3] Make use of 'ip' as 'ifconfig' is not installed default
