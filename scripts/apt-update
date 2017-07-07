@@ -88,8 +88,17 @@ make_mail()
 	rm -f "${TMPMAIL}"
 }
 
+run_unattended_upgrade()
+{
+	UNATTENDED_UPGRADES=$(which unattended-upgrade)
+	if [ $? -eq 0 ] && [ -n "${UNATTENDED_UPGRADES}"  ]; then
+		${UNATTENDED_UPGRADES}
+	fi
+}
+
 # get new packages list
 apt-get update > /dev/null
+run_unattended_upgrade
 
 # remove leading and trailing whitespaces from value
 EXCLUDE="$(echo "${EXCLUDE}" | sed 's/^[ \t]*//;s/[ \t]*$//')"
