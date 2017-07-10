@@ -1,8 +1,9 @@
-config-apt-update (0.1.5) UNRELEASED; urgency=medium
+config-apt-update (0.1.5) restricted; urgency=medium
 
-  * 
+  * [6e59673] Adding override to systemd config to run apt-daily
+    between 6:47 and 7:47
 
- -- Jan Wagner <waja@cyconet.org>  Fri, 07 Jul 2017 14:36:36 +0200
+ -- Jan Wagner <waja@cyconet.org>  Mon, 10 Jul 2017 08:06:35 +0200
 
 config-apt-update (0.1.4) restricted; urgency=medium
 
