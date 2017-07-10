@@ -1,8 +1,8 @@
-config-apt-update (0.1.6) UNRELEASED; urgency=medium
+config-apt-update (0.1.6) restricted; urgency=medium
 
-  * 
+  * [38d9911] The correct package name is unattended-upgrades
 
- -- Jan Wagner <waja@cyconet.org>  Mon, 10 Jul 2017 08:08:24 +0200
+ -- Jan Wagner <waja@cyconet.org>  Mon, 10 Jul 2017 08:22:47 +0200
 
 config-apt-update (0.1.5) restricted; urgency=medium
 
