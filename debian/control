@@ -13,7 +13,7 @@ Depends: bind9-host | ldnsutils,
          bsd-mailx | mailx | mailutils,
          debconf (>= 0.2.26) | debconf-2.0,
          ${misc:Depends}
-Recommends: unattended-upgrade
+Recommends: unattended-upgrades
 Conflicts: heirloom-mailx
 Description: configuration for automatical update notification
  This package contains utilities for automatical notification of available
