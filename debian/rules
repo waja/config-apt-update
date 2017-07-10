@@ -23,6 +23,8 @@ install: build-stamp
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/config-apt-update
 	install -d -m 0755 debian/config-apt-update/etc/default/
 	install -D -m 644 debian/config-apt-update.default debian/config-apt-update/etc/default/config-apt-update
+	install -d -m 0755 debian/config-apt-update/etc/systemd/system/apt-daily.timer.d/
+	install -D -m 644 debian/system.timer.override.conf debian/config-apt-update/etc/systemd/system/apt-daily.timer.d/override.conf
 
 # Build architecture-independent files here.
 binary-indep: build install
