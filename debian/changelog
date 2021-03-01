@@ -1,3 +1,9 @@
+config-apt-update (0.1.8) UNRELEASED; urgency=medium
+
+  * NOT RELEASED YET
+
+ -- Jan Wagner <waja@cyconet.org>  Mon, 01 Mar 2021 07:46:29 +0100
+
 config-apt-update (0.1.7) restricted; urgency=medium
 
   * [b06eb46] travis-ci: Use xenial image
