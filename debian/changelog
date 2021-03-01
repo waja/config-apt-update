@@ -1,6 +1,6 @@
-config-apt-update (0.1.8) UNRELEASED; urgency=medium
+config-apt-update (0.1.8) restricted; urgency=medium
 
-  * NOT RELEASED YET
+  * [73981b8] Revert "d/control: Raise compat level to 12"
 
  -- Jan Wagner <waja@cyconet.org>  Mon, 01 Mar 2021 07:46:29 +0100
 
