@@ -18,6 +18,18 @@ else
 	exit 0
 fi
 
+if [ -f /etc/os-release ]
+then
+	. /etc/os-release
+fi
+
+if [ ${VERSION_ID} -ge 10 ]
+then
+	UPGRADE_CMD="apt --dry-run upgrade"
+else
+	UPGRADE_CMD="apt-get --just-print -u upgrade"
+fi
+
 TMPMAIL="$(mktemp)"
 # get hostname from address
 getaddress()
@@ -68,7 +80,7 @@ detect_os()
 
 detect_held_packages()
 {
-	PACKAGES_HELD=$(apt-get --just-print -u upgrade | grep -1 "been kept back" | tail -1)
+	PACKAGES_HELD=$(${UPGRADE_CMD} 2>/dev/null | grep -1 "been kept back" | tail -1)
 }
 
 make_mail()
@@ -76,9 +88,9 @@ make_mail()
 	printf "apt-get upgrade would like to install these packages:\n\n" > "${TMPMAIL}"
 	if [ -z "${EXCLUDE}" ]
 	then
-		apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
+		${UPGRADE_CMD} 2>/dev/null | grep '^Inst ' | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
 	else
-		apt-get --just-print -u upgrade | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
+		${UPGRADE_CMD} 2>/dev/null | grep '^Inst ' | grep -v -E "${EXCLUDE}" | awk ' { print $2"\t"$3"\t"$4")" } ' >> "${TMPMAIL}"
 	fi
 	if [ -n "${PACKAGES_HELD}" ]
 	then
@@ -105,7 +117,7 @@ EXCLUDE="$(echo "${EXCLUDE}" | sed 's/^[ \t]*//;s/[ \t]*$//')"
 
 if [ -z "${EXCLUDE}" ]
 then
-	if [ "$(apt-get --just-print -u upgrade | grep '^Inst ' | awk ' { print $2 }' | wc -l)" -gt "0" ]
+	if [ "$(${UPGRADE_CMD} 2>/dev/null | grep '^Inst ' | awk ' { print $2 }' | wc -l)" -gt "0" ]
 	then
 		getaddress
 		detect_os
