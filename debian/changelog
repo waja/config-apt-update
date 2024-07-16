@@ -1,8 +1,18 @@
-config-apt-update (0.1.9) UNRELEASED; urgency=medium
+config-apt-update (0.1.9) restricted; urgency=medium
 
-  * NOT RELEASED YET
+  [ Jan Wagner ]
+  * [816e33c] Adding Dependabot config
+  * [85a4ede] ci: pin action versions
 
- -- Jan Wagner <waja@cyconet.org>  Mon, 01 Mar 2021 11:49:44 +0100
+  [ dependabot[bot] ]
+  * [6f355bf] Bump actions/checkout from 2 to 3
+  * [85a4cc8] Updating build pipelines
+
+  [ dependabot[bot] ]
+  * [8debc80] Bump actions/checkout from 3 to 4
+  * [e68cf83] Show held and depending packages too
+
+ -- Jan Wagner <waja@cyconet.org>  Tue, 16 Jul 2024 12:46:56 +0000
 
 config-apt-update (0.1.8) restricted; urgency=medium
 
