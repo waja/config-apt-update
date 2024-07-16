@@ -1,3 +1,9 @@
+config-apt-update (0.1.10) UNRELEASED; urgency=medium
+
+  *
+
+ -- Jan Wagner <waja@cyconet.org>  Tue, 16 Jul 2024 15:03:23 +0200
+
 config-apt-update (0.1.9) restricted; urgency=medium
 
   [ Jan Wagner ]
